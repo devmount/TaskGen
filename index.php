@@ -146,57 +146,33 @@ class TaskGen extends Plugin
 
         $content .= '<div class="taskgen">';
 
-        switch ($mode) {
-            case 'mult':
-                // build form
-                $content .= '
-                    <h2>Multiplikation</h2>
-                    <form name="taskgen-mult-form" action="" method="post">
-                        <h3>1. Faktor</h3>
-                        Zahl zwischen <input type="number" name="min-a" />
-                        und <input type="number" name="max-a" />
-                        <h3>2. Faktor</h3>
-                        Zahl zwischen <input type="number" name="min-b" />
-                        und <input type="number" name="max-b" />
-                        <h3>Anzahl der Aufgaben</h3>
-                        <input type="number" name="tasks" />
-                        <br />
-                        <input type="submit" name="taskgen-mult" value="Start" />
-                    </form>
-                ';
-                break;
-            case 'div':
-                // build form
-                $content .= '
-                    <h2>Division</h2>
-                    <form name="taskgen-div-form" action="" method="post">
-                        <h3>Divisor</h3>
-                        Zahl zwischen <input type="number" name="min-a" />
-                        und <input type="number" name="max-a" />
-                        <h3>Quotient</h3>
-                        Zahl zwischen <input type="number" name="min-b" />
-                        und <input type="number" name="max-b" />
-                        <h3>Anzahl der Aufgaben</h3>
-                        <input type="number" name="tasks" />
-                        <br />
-                        <input type="submit" name="taskgen-div" value="Start" />
-                    </form>
-                ';
-                break;
+        // build form
+        $content .= '
+            <h2>Konfiguration</h2>
+            <form name="taskgen-form" action="" method="post">
+                <h3>1. Faktor | Divisor</h3>
+                Zahl zwischen <input type="number" name="min-a" value="' . getRequestValue('min-a') . '"/>
+                und <input type="number" name="max-a" value="' . getRequestValue('max-a') . '"/>
+                <h3>2. Faktor | Quotient</h3>
+                Zahl zwischen <input type="number" name="min-b" value="' . getRequestValue('min-b') . '"/>
+                und <input type="number" name="max-b" value="' . getRequestValue('max-b') . '"/>
+                <h3>Anzahl der Aufgaben</h3>
+                <input type="number" name="tasks" value="' . getRequestValue('tasks') . '"/>
+                <br />
+                <input type="submit" name="taskgen" value="Start" />
+            </form>
+        ';
 
-            default:
-                break;
-        }
-
-        // multiply
-        if (getRequestValue('taskgen-mult') != '') {
+        if (getRequestValue('taskgen') != '') {
             $ranges = array(
                 'a1' => getRequestValue('min-a'),
                 'a2' => getRequestValue('max-a'),
                 'b1' => getRequestValue('min-b'),
                 'b2' => getRequestValue('max-b'),
             );
-            $content .= '<h2>Aufgaben</h2>';
+            // multiply
+            $content .= '<div class="large-7 columns">';
+            $content .= '<h2>Multiplikation</h2>';
             $content .= '<pre>';
             $number = getRequestValue('tasks');
             for ($i=0; $i < $number; $i++) {
@@ -207,17 +183,11 @@ class TaskGen extends Plugin
                     $a . ' &middot; ' . $b . ' = ' . $s . '<br />';
             }
             $content .= '</pre>';
-        }
+            $content .= '</div>';
 
-        // divide
-        if (getRequestValue('taskgen-div') != '') {
-            $ranges = array(
-                'a1' => getRequestValue('min-a'),
-                'a2' => getRequestValue('max-a'),
-                'b1' => getRequestValue('min-b'),
-                'b2' => getRequestValue('max-b'),
-            );
-            $content .= '<h2>Aufgaben</h2>';
+            // divide
+            $content .= '<div class="large-8 columns">';
+            $content .= '<h2>Division</h2>';
             $content .= '<pre>';
             $number = getRequestValue('tasks');
             for ($i=0; $i < $number; $i++) {
@@ -228,6 +198,7 @@ class TaskGen extends Plugin
                     $s . ' : ' . $a . ' = ' . $b . '<br />';
             }
             $content .= '</pre>';
+            $content .= '</div>';
         }
 
         $content .= '</div>';
