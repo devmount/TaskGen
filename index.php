@@ -131,8 +131,7 @@ class TaskGen extends Plugin
         $label = $this->_cms_lang->getLanguageValue('label');
 
         // get params
-        list($param_, $param_, $param_)
-            = $this->makeUserParaArray($value, false, '|');
+        $mode = $value;
 
         // get conf and set default
         $conf = array();
@@ -142,19 +141,96 @@ class TaskGen extends Plugin
                 : $this->settings->get($elem);
         }
 
-        // include jquery and TaskGen javascript
-        $syntax->insert_jquery_in_head('jquery');
-        $syntax->insert_in_head(
-            '<script type="text/javascript" src="'
-            . $this->PLUGIN_SELF_URL
-            . 'js/TaskGen.js"></script>'
-        );
-
         // initialize return content, begin plugin content
         $content = '<!-- BEGIN ' . self::PLUGIN_TITLE . ' plugin content --> ';
 
-        // do something awesome here! ...
+        $content .= '<div class="taskgen">';
 
+        switch ($mode) {
+            case 'mult':
+                // build form
+                $content .= '
+                    <h2>Multiplikation</h2>
+                    <form name="taskgen-mult-form" action="" method="post">
+                        <h3>1. Faktor</h3>
+                        Zahl zwischen <input type="number" name="min-a" />
+                        und <input type="number" name="max-a" />
+                        <h3>2. Faktor</h3>
+                        Zahl zwischen <input type="number" name="min-b" />
+                        und <input type="number" name="max-b" />
+                        <h3>Anzahl der Aufgaben</h3>
+                        <input type="number" name="tasks" />
+                        <br />
+                        <input type="submit" name="taskgen-mult" value="Start" />
+                    </form>
+                ';
+                break;
+            case 'div':
+                // build form
+                $content .= '
+                    <h2>Division</h2>
+                    <form name="taskgen-div-form" action="" method="post">
+                        <h3>Divisor</h3>
+                        Zahl zwischen <input type="number" name="min-a" />
+                        und <input type="number" name="max-a" />
+                        <h3>Quotient</h3>
+                        Zahl zwischen <input type="number" name="min-b" />
+                        und <input type="number" name="max-b" />
+                        <h3>Anzahl der Aufgaben</h3>
+                        <input type="number" name="tasks" />
+                        <br />
+                        <input type="submit" name="taskgen-div" value="Start" />
+                    </form>
+                ';
+                break;
+
+            default:
+                break;
+        }
+
+        // multiply
+        if (getRequestValue('taskgen-mult') != '') {
+            $ranges = array(
+                'a1' => getRequestValue('min-a'),
+                'a2' => getRequestValue('max-a'),
+                'b1' => getRequestValue('min-b'),
+                'b2' => getRequestValue('max-b'),
+            );
+            $content .= '<h2>Aufgaben</h2>';
+            $content .= '<pre>';
+            $number = getRequestValue('tasks');
+            for ($i=0; $i < $number; $i++) {
+                $a = rand($ranges['a1'], $ranges['a2']);
+                $b = rand($ranges['b1'], $ranges['b2']);
+                $s = $a*$b;
+                $content .=
+                    $a . ' &middot; ' . $b . ' = ' . $s . '<br />';
+            }
+            $content .= '</pre>';
+        }
+
+        // divide
+        if (getRequestValue('taskgen-div') != '') {
+            $ranges = array(
+                'a1' => getRequestValue('min-a'),
+                'a2' => getRequestValue('max-a'),
+                'b1' => getRequestValue('min-b'),
+                'b2' => getRequestValue('max-b'),
+            );
+            $content .= '<h2>Aufgaben</h2>';
+            $content .= '<pre>';
+            $number = getRequestValue('tasks');
+            for ($i=0; $i < $number; $i++) {
+                $a = rand($ranges['a1'], $ranges['a2']);
+                $b = rand($ranges['b1'], $ranges['b2']);
+                $s = $a*$b;
+                $content .=
+                    $s . ' : ' . $a . ' = ' . $b . '<br />';
+            }
+            $content .= '</pre>';
+        }
+
+        $content .= '</div>';
         // end plugin content
         $content .= '<!-- END ' . self::PLUGIN_TITLE . ' plugin content --> ';
 
