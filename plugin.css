@@ -5,6 +5,15 @@
 .taskgen {
 }
 
+.taskgen input[type='number'] {
+    display: inline-block;
+    width: 45px;
+}
+
+.taskgen pre {
+    font-size: 13pt;
+}
+
 /* NOTICE message */
 .taskgen-notice {
     display: table;
