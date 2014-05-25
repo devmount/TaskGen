@@ -151,13 +151,23 @@ class TaskGen extends Plugin
             <h2>Konfiguration</h2>
             <form name="taskgen-form" action="" method="post">
                 <h3>1. Faktor | Divisor</h3>
-                Zahl zwischen <input type="number" name="min-a" value="' . getRequestValue('min-a') . '"/>
-                und <input type="number" name="max-a" value="' . getRequestValue('max-a') . '"/>
+                Zahl zwischen <input type="number" name="min-a" value="'
+                    . getRequestValue('min-a')
+                . '"/>
+                und <input type="number" name="max-a" value="'
+                    . getRequestValue('max-a')
+                . '"/>
                 <h3>2. Faktor | Quotient</h3>
-                Zahl zwischen <input type="number" name="min-b" value="' . getRequestValue('min-b') . '"/>
-                und <input type="number" name="max-b" value="' . getRequestValue('max-b') . '"/>
+                Zahl zwischen <input type="number" name="min-b" value="'
+                    . getRequestValue('min-b')
+                . '"/>
+                und <input type="number" name="max-b" value="'
+                    . getRequestValue('max-b')
+                . '"/>
                 <h3>Anzahl der Aufgaben</h3>
-                <input type="number" name="tasks" value="' . getRequestValue('tasks') . '"/>
+                <input type="number" name="tasks" value="'
+                    . getRequestValue('tasks')
+                . '"/>
                 <br />
                 <input type="submit" name="taskgen" value="Start" />
             </form>
@@ -179,8 +189,7 @@ class TaskGen extends Plugin
                 $a = rand($ranges['a1'], $ranges['a2']);
                 $b = rand($ranges['b1'], $ranges['b2']);
                 $s = $a*$b;
-                $content .=
-                    $a . ' &middot; ' . $b . ' = ' . $s . '<br />';
+                $content .= $a . ' &middot; ' . $b . ' = ' . $s . '<br />';
             }
             $content .= '</pre>';
             $content .= '</div>';
@@ -194,8 +203,11 @@ class TaskGen extends Plugin
                 $a = rand($ranges['a1'], $ranges['a2']);
                 $b = rand($ranges['b1'], $ranges['b2']);
                 $s = $a*$b;
-                $content .=
-                    $s . ' : ' . $a . ' = ' . $b . '<br />';
+                // check division by zero
+                if ($b == 0) {
+                    $a = 'n.l.';
+                }
+                $content .= $s . ' : ' . $b . ' = ' . $a . '<br />';
             }
             $content .= '</pre>';
             $content .= '</div>';
