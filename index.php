@@ -3,7 +3,7 @@
 /**
  * moziloCMS Plugin: TaskGen
  *
- * Does something awesome!
+ * A generator for various multiple exercises of different subjects.
  *
  * PHP version 5
  *
