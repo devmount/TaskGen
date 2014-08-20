@@ -181,7 +181,7 @@ class TaskGen extends Plugin
                 'b2' => getRequestValue('max-b'),
             );
             // multiply
-            $content .= '<div class="large-7 columns">';
+            $content .= '<table><tr><td>';
             $content .= '<h2>Multiplikation</h2>';
             $content .= '<pre>';
             $number = getRequestValue('tasks');
@@ -192,10 +192,10 @@ class TaskGen extends Plugin
                 $content .= $a . ' &middot; ' . $b . ' = ' . $s . '<br />';
             }
             $content .= '</pre>';
-            $content .= '</div>';
+            $content .= '</td>';
 
             // divide
-            $content .= '<div class="large-8 columns">';
+            $content .= '<td>';
             $content .= '<h2>Division</h2>';
             $content .= '<pre>';
             $number = getRequestValue('tasks');
@@ -210,7 +210,7 @@ class TaskGen extends Plugin
                 $content .= $s . ' : ' . $b . ' = ' . $a . '<br />';
             }
             $content .= '</pre>';
-            $content .= '</div>';
+            $content .= '</td></tr></table>';
         }
 
         $content .= '</div>';
