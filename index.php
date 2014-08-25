@@ -149,28 +149,29 @@ class TaskGen extends Plugin
         // build form
         $content .= '
             <h2>Konfiguration</h2>
-            <form name="taskgen-form" action="" method="post">
-                <h3>1. Faktor | Divisor</h3>
-                Zahl zwischen <input type="number" name="min-a" value="'
-                    . getRequestValue('min-a')
-                . '"/>
-                und <input type="number" name="max-a" value="'
-                    . getRequestValue('max-a')
-                . '"/>
-                <h3>2. Faktor | Quotient</h3>
-                Zahl zwischen <input type="number" name="min-b" value="'
-                    . getRequestValue('min-b')
-                . '"/>
-                und <input type="number" name="max-b" value="'
-                    . getRequestValue('max-b')
-                . '"/>
-                <h3>Anzahl der Aufgaben</h3>
-                <input type="number" name="tasks" value="'
-                    . getRequestValue('tasks')
-                . '"/>
-                <br />
-                <input type="submit" name="taskgen" value="Start" />
-            </form>
+            <div class="section"><div>
+                <form name="taskgen-form" action="" method="post">
+                    <h3>1. Faktor | Divisor</h3>
+                    Zahl zwischen <input type="number" name="min-a" value="'
+                        . getRequestValue('min-a')
+                    . '"/>
+                    und <input type="number" name="max-a" value="'
+                        . getRequestValue('max-a')
+                    . '"/>
+                    <h3>2. Faktor | Quotient</h3>
+                    Zahl zwischen <input type="number" name="min-b" value="'
+                        . getRequestValue('min-b')
+                    . '"/>
+                    und <input type="number" name="max-b" value="'
+                        . getRequestValue('max-b')
+                    . '"/>
+                    <h3>Anzahl der Aufgaben</h3>
+                    <input type="number" name="tasks" value="'
+                        . getRequestValue('tasks')
+                    . '"/>
+                    <input type="submit" name="taskgen" value="Start" />
+                </form>
+            </div></div>
         ';
 
         // handle input and build exercises
@@ -183,8 +184,11 @@ class TaskGen extends Plugin
                 'b2' => getRequestValue('max-b'),
             );
             // multiply
+            $content .= '<br />';
+            $content .= '<h2>Ausgabe</h2>';
+            $content .= '<div class="section"><div>';
             $content .= '<table><tr><td>';
-            $content .= '<h2>Multiplikation</h2>';
+            $content .= '<h3>Multiplikation</h3>';
             $content .= '<pre>';
             $number = getRequestValue('tasks');
             for ($i=0; $i < $number; $i++) {
@@ -198,7 +202,7 @@ class TaskGen extends Plugin
 
             // divide
             $content .= '<td>';
-            $content .= '<h2>Division</h2>';
+            $content .= '<h3>Division</h3>';
             $content .= '<pre>';
             $number = getRequestValue('tasks');
             for ($i=0; $i < $number; $i++) {
@@ -213,6 +217,8 @@ class TaskGen extends Plugin
             }
             $content .= '</pre>';
             $content .= '</td></tr></table>';
+            $content .= '</div></div>';
+            $content .= '<br />Alle Angaben und Ergebnisse ohne Gewähr.';
         }
 
         $content .= '</div>';

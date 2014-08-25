@@ -5,9 +5,13 @@
 .taskgen {
 }
 
-.taskgen input[type='number'] {
+.taskgen input[type='number'], .taskgen input[type='submit'] {
     display: inline-block;
-    width: 45px;
+    width: 50px;
+}
+.taskgen input[type='submit'] {
+    padding: 2px 0;
+    width: 54px;
 }
 
 .taskgen pre {
@@ -16,7 +20,6 @@
 
 /* Result */
 .taskgen table {
-    margin-top: 15px;
 }
 .taskgen table tr td{
     padding-right: 20px;
