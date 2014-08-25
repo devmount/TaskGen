@@ -11,10 +11,12 @@
  * @package  PHP_MoziloPlugins
  * @author   HPdesigner <mail@devmount.de>
  * @license  GPL v3+
- * @version  GIT: v0.x.jjjj-mm-dd
+ * @version  GIT: v0.1.2014-08-25
  * @link     https://github.com/devmount/TaskGen
  * @link     http://devmount.de/Develop/moziloCMS/Plugins/TaskGen.html
- * @see      Verse
+ * @see      So do not fear, for I am with you; do not be dismayed, for I am your
+ *           God. I will strengthen you and help you; I will uphold you with my
+ *           righteous right hand.
  *           – The Bible
  *
  * Plugin created by DEVMOUNT
@@ -47,10 +49,10 @@ class TaskGen extends Plugin
     const PLUGIN_DOCU
         = 'http://devmount.de/Develop/moziloCMS/Plugins/TaskGen.html';
     const PLUGIN_TITLE   = 'TaskGen';
-    const PLUGIN_VERSION = 'v0.x.jjjj-mm-dd';
+    const PLUGIN_VERSION = 'v0.1.2014-08-25';
     const MOZILO_VERSION = '2.0';
     private $_plugin_tags = array(
-        'tag1' => '{TaskGen|type|<param1>|<param2>}',
+        'tag1' => '{TaskGen}',
     );
 
     const LOGO_URL = 'http://media.devmount.de/logo_pluginconf.png';
@@ -68,43 +70,43 @@ class TaskGen extends Plugin
      *      select   => default, type, descriptions, multiselect
      */
     private $_confdefault = array(
-        'text' => array(
-            'string',
-            'text',
-            '100',
-            '5',
-            "/^[0-9]{1,3}$/",
-        ),
-        'textarea' => array(
-            'string',
-            'textarea',
-            '10',
-            '10',
-            "/^[a-zA-Z0-9]{1,10}$/",
-        ),
-        'password' => array(
-            'string',
-            'password',
-            '100',
-            '5',
-            "/^[a-zA-Z0-9]{8,20}$/",
-            true,
-        ),
-        'check' => array(
-            true,
-            'check',
-        ),
-        'radio' => array(
-            'red',
-            'radio',
-            array('red', 'green', 'blue'),
-        ),
-        'select' => array(
-            'bike',
-            'select',
-            array('car','bike','plane'),
-            false,
-        ),
+        // 'text' => array(
+        //     'string',
+        //     'text',
+        //     '100',
+        //     '5',
+        //     "/^[0-9]{1,3}$/",
+        // ),
+        // 'textarea' => array(
+        //     'string',
+        //     'textarea',
+        //     '10',
+        //     '10',
+        //     "/^[a-zA-Z0-9]{1,10}$/",
+        // ),
+        // 'password' => array(
+        //     'string',
+        //     'password',
+        //     '100',
+        //     '5',
+        //     "/^[a-zA-Z0-9]{8,20}$/",
+        //     true,
+        // ),
+        // 'check' => array(
+        //     true,
+        //     'check',
+        // ),
+        // 'radio' => array(
+        //     'red',
+        //     'radio',
+        //     array('red', 'green', 'blue'),
+        // ),
+        // 'select' => array(
+        //     'bike',
+        //     'select',
+        //     array('car','bike','plane'),
+        //     false,
+        // ),
     );
 
     /**
@@ -127,11 +129,8 @@ class TaskGen extends Plugin
             . '.txt'
         );
 
-        // get language labels
-        $label = $this->_cms_lang->getLanguageValue('label');
-
         // get params
-        $mode = $value;
+        $mode = $value; // TODO: build modes
 
         // get conf and set default
         $conf = array();
@@ -173,6 +172,7 @@ class TaskGen extends Plugin
             </form>
         ';
 
+        // handle input and build exercises
         if (getRequestValue('taskgen') != '') {
             $ranges = array(
                 'a1' => getRequestValue('min-a'),
@@ -214,6 +214,7 @@ class TaskGen extends Plugin
         }
 
         $content .= '</div>';
+
         // end plugin content
         $content .= '<!-- END ' . self::PLUGIN_TITLE . ' plugin content --> ';
 
@@ -319,39 +320,39 @@ class TaskGen extends Plugin
         $template = '<style>' . $admin_css . '</style>';
 
         // build Template
-        $template .= '
-            <div class="taskgen-admin-header">
-            <span>'
-                . $this->_admin_lang->getLanguageValue(
-                    'admin_header',
-                    self::PLUGIN_TITLE
-                )
-            . '</span>
-            <a href="' . self::PLUGIN_DOCU . '" target="_blank">
-            <img style="float:right;" src="' . self::LOGO_URL . '" />
-            </a>
-            </div>
-        </li>
-        <li class="mo-in-ul-li ui-widget-content taskgen-admin-li">
-            <div class="taskgen-admin-subheader">'
-            . $this->_admin_lang->getLanguageValue('admin_test')
-            . '</div>
-            <div class="taskgen-single-conf">
-                {test1_text}
-                {test1_description}
-                <span class="taskgen-admin-default">
-                    [' . /*$this->_confdefault['test1'][0] .*/']
-                </span>
-            </div>
-            <div class="taskgen-single-conf">
-                {test2_text}
-                {test2_description}
-                <span class="taskgen-admin-default">
-                    [' . /*$this->_confdefault['test2'][0] .*/']
-                </span>
-        ';
+        // $template .= '
+        //     <div class="taskgen-admin-header">
+        //     <span>'
+        //         . $this->_admin_lang->getLanguageValue(
+        //             'admin_header',
+        //             self::PLUGIN_TITLE
+        //         )
+        //     . '</span>
+        //     <a href="' . self::PLUGIN_DOCU . '" target="_blank">
+        //     <img style="float:right;" src="' . self::LOGO_URL . '" />
+        //     </a>
+        //     </div>
+        // </li>
+        // <li class="mo-in-ul-li ui-widget-content taskgen-admin-li">
+        //     <div class="taskgen-admin-subheader">'
+        //     . $this->_admin_lang->getLanguageValue('admin_test')
+        //     . '</div>
+        //     <div class="taskgen-single-conf">
+        //         {test1_text}
+        //         {test1_description}
+        //         <span class="taskgen-admin-default">
+        //             [' . /*$this->_confdefault['test1'][0] .*/']
+        //         </span>
+        //     </div>
+        //     <div class="taskgen-single-conf">
+        //         {test2_text}
+        //         {test2_description}
+        //         <span class="taskgen-admin-default">
+        //             [' . /*$this->_confdefault['test2'][0] .*/']
+        //         </span>
+        // ';
 
-        $config['--template~~'] = $template;
+        // $config['--template~~'] = $template;
 
         return $config;
     }
