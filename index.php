@@ -174,6 +174,7 @@ class TaskGen extends Plugin
 
         // handle input and build exercises
         if (getRequestValue('taskgen') != '') {
+            // get configuration data
             $ranges = array(
                 'a1' => getRequestValue('min-a'),
                 'a2' => getRequestValue('max-a'),
