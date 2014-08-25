@@ -1,5 +1,5 @@
 TaskGen
-===========
+=======
 
 A Plugin for moziloCMS 2.0
 
@@ -16,11 +16,8 @@ Installing a plugin manually requires FTP Access.
 - Go to the backend tab *Plugins* and activate the now listed new TaskGen plugin
 
 ## Syntax
-```{TaskGen|<param1>|<param2>}```
-Here comes the general description of the plugin tag.
-
-1. Parameter ```<param1>```: Short description of parameter 1.
-2. Parameter ```<param2>```: Short description of parameter 2.
+```{TaskGen}```
+Shows configuration formula and generated contents.
 
 ## License
 This Plugin is distributed under *GNU General Public License, Version 3* (see LICENSE) or, at your choice, any further version.
