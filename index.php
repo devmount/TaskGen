@@ -9,7 +9,7 @@
  *
  * @category PHP
  * @package  PHP_MoziloPlugins
- * @author   HPdesigner <mail@devmount.de>
+ * @author   DEVMOUNT <mail@devmount.de>
  * @license  GPL v3+
  * @version  GIT: v0.1.2014-08-25
  * @link     https://github.com/devmount/TaskGen
@@ -34,7 +34,7 @@ if (!defined('IS_CMS')) {
  *
  * @category PHP
  * @package  PHP_MoziloPlugins
- * @author   HPdesigner <mail@devmount.de>
+ * @author   DEVMOUNT <mail@devmount.de>
  * @license  GPL v3+
  * @link     https://github.com/devmount/TaskGen
  */
@@ -45,12 +45,13 @@ class TaskGen extends Plugin
     private $_cms_lang;
 
     // plugin information
-    const PLUGIN_AUTHOR  = 'HPdesigner';
-    const PLUGIN_DOCU
-        = 'http://devmount.de/Develop/moziloCMS/Plugins/TaskGen.html';
+    const PLUGIN_AUTHOR  = 'DEVMOUNT';
     const PLUGIN_TITLE   = 'TaskGen';
     const PLUGIN_VERSION = 'v0.1.2014-08-25';
     const MOZILO_VERSION = '2.0';
+    const PLUGIN_DOCU
+        = 'http://devmount.de/Develop/moziloCMS/Plugins/TaskGen.html';
+
     private $_plugin_tags = array(
         'tag1' => '{TaskGen}',
     );
@@ -403,7 +404,11 @@ class TaskGen extends Plugin
                 htmlspecialchars($this->_plugin_tags['tag1'])
             ),
             self::PLUGIN_AUTHOR,
-            self::PLUGIN_DOCU,
+            array(
+                self::PLUGIN_DOCU,
+                self::PLUGIN_TITLE . ' '
+                . $this->_admin_lang->getLanguageValue('on_devmount')
+            ),
             $tags
         );
 
