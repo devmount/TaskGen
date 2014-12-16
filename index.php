@@ -150,25 +150,25 @@ class TaskGen extends Plugin
         $content .= '
             <h2>Konfiguration</h2>
             <div class="section"><div>
-                <form name="taskgen-form" action="" method="post">
+                <form name="taskgen-form" action="#result" method="post">
                     <h3>1. Faktor | Divisor</h3>
                     Zahl zwischen <input type="number" name="min-a" value="'
                         . getRequestValue('min-a')
-                    . '"/>
+                    . '" required />
                     und <input type="number" name="max-a" value="'
                         . getRequestValue('max-a')
-                    . '"/>
+                    . '" required />
                     <h3>2. Faktor | Quotient</h3>
                     Zahl zwischen <input type="number" name="min-b" value="'
                         . getRequestValue('min-b')
-                    . '"/>
+                    . '" required />
                     und <input type="number" name="max-b" value="'
                         . getRequestValue('max-b')
-                    . '"/>
+                    . '" required />
                     <h3>Anzahl der Aufgaben</h3>
                     <input type="number" name="tasks" value="'
                         . getRequestValue('tasks')
-                    . '"/>
+                    . '" min="1" required />
                     <input type="submit" name="taskgen" value="Start" />
                 </form>
             </div></div>
@@ -183,19 +183,34 @@ class TaskGen extends Plugin
                 'b1' => getRequestValue('min-b'),
                 'b2' => getRequestValue('max-b'),
             );
+            $number = getRequestValue('tasks');
+            // handle too high task number
+            $maxcount = (abs($ranges['a1']-$ranges['a2'])+1)*(abs($ranges['a1']-$ranges['a2'])+1);
+            if ($number > $maxcount) {
+                $number = $maxcount;
+            }
+            // initialize task lists
+            $multasks = array();
+            $divtasks = array();
             // multiply
             $content .= '<br />';
-            $content .= '<h2>Ausgabe</h2>';
+            $content .= '<h2 id="result">Ausgabe</h2>';
             $content .= '<div class="section"><div>';
             $content .= '<table><tr><td>';
             $content .= '<h3>Multiplikation</h3>';
             $content .= '<pre>';
-            $number = getRequestValue('tasks');
-            for ($i=0; $i < $number; $i++) {
+            while (count($multasks) < $number) {
                 $a = rand($ranges['a1'], $ranges['a2']);
                 $b = rand($ranges['b1'], $ranges['b2']);
                 $s = $a*$b;
-                $content .= $a . ' &middot; ' . $b . ' = ' . $s . '<br />';
+                $singletask = $a . ' &middot; ' . $b . ' = ' . $s;
+                if (!in_array($singletask, $multasks)) {
+                    $multasks[] = $singletask;
+                }
+            }
+            // add tasks to content
+            foreach ($multasks as $task) {
+                $content .= $task . '<br />';
             }
             $content .= '</pre>';
             $content .= '</td>';
@@ -204,8 +219,14 @@ class TaskGen extends Plugin
             $content .= '<td>';
             $content .= '<h3>Division</h3>';
             $content .= '<pre>';
-            $number = getRequestValue('tasks');
-            for ($i=0; $i < $number; $i++) {
+            if (
+                min($ranges['b1'],$ranges['b2'])<= 0 AND
+                max($ranges['b1'],$ranges['b2'])>= 0 AND
+                $maxcount-$number < abs($ranges['b1']-$ranges['b2'])+1
+            ) {
+                $number -= abs($ranges['b1']-$ranges['b2'])-($maxcount-$number);
+            }
+            while (count($divtasks) < $number) {
                 $a = rand($ranges['a1'], $ranges['a2']);
                 $b = rand($ranges['b1'], $ranges['b2']);
                 $s = $a*$b;
@@ -213,7 +234,14 @@ class TaskGen extends Plugin
                 if ($b == 0) {
                     $a = 'n.l.';
                 }
-                $content .= $s . ' : ' . $b . ' = ' . $a . '<br />';
+                $singletask = $s . ' : ' . $b . ' = ' . $a;
+                if (!in_array($singletask, $divtasks)) {
+                    $divtasks[] = $singletask;
+                }
+            }
+            // add tasks to content
+            foreach ($divtasks as $task) {
+                $content .= $task . '<br />';
             }
             $content .= '</pre>';
             $content .= '</td></tr></table>';

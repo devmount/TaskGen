@@ -23,6 +23,7 @@
 }
 .taskgen table tr td{
     padding-right: 20px;
+    vertical-align: top;
 }
 
 /* NOTICE message */
