@@ -184,10 +184,12 @@ class TaskGen extends Plugin
                 'b2' => getRequestValue('max-b'),
             );
             $number = getRequestValue('tasks');
+            $message = '';
             // handle too high task number
             $maxcount = (abs($ranges['a1']-$ranges['a2'])+1)*(abs($ranges['a1']-$ranges['a2'])+1);
             if ($number > $maxcount) {
                 $number = $maxcount;
+                $message = 'Maximale Aufgabenzahl erreicht (' . $maxcount . ' Kombinationen möglich)';
             }
             // initialize task lists
             $multasks = array();
@@ -219,19 +221,13 @@ class TaskGen extends Plugin
             $content .= '<td>';
             $content .= '<h3>Division</h3>';
             $content .= '<pre>';
-            if (
-                min($ranges['b1'],$ranges['b2'])<= 0 AND
-                max($ranges['b1'],$ranges['b2'])>= 0 AND
-                $maxcount-$number < abs($ranges['b1']-$ranges['b2'])+1
-            ) {
-                $number -= abs($ranges['b1']-$ranges['b2'])-($maxcount-$number);
-            }
             while (count($divtasks) < $number) {
                 $a = rand($ranges['a1'], $ranges['a2']);
                 $b = rand($ranges['b1'], $ranges['b2']);
                 $s = $a*$b;
                 // check division by zero
                 if ($b == 0) {
+                    $s = $a;
                     $a = 'n.l.';
                 }
                 $singletask = $s . ' : ' . $b . ' = ' . $a;
@@ -245,6 +241,7 @@ class TaskGen extends Plugin
             }
             $content .= '</pre>';
             $content .= '</td></tr></table>';
+            $content .= $message;
             $content .= '</div></div>';
             $content .= '<br />Alle Angaben und Ergebnisse ohne Gewähr.';
         }
