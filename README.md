@@ -16,12 +16,14 @@ Installing a plugin manually requires FTP Access.
 - Go to the backend tab *Plugins* and activate the now listed new TaskGen plugin
 
 ## Syntax
-```{TaskGen}```
+```
+{TaskGen}
+```
 Shows configuration formula and generated contents.
 
 ## License
 This Plugin is distributed under *GNU General Public License, Version 3* (see LICENSE) or, at your choice, any further version.
 
 ## Documentation
-A detailed documentation and demo can be found on DEVMOUNT's website:
-http://devmount.de/Develop/moziloCMS/Plugins/TaskGen.html
+A detailed documentation and demo can be found here:
+http://t.devmount.de/Develop/moziloCMS/Plugins/TaskGen.html
