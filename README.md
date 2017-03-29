@@ -1,6 +1,4 @@
-TaskGen
-=======
-
+# TaskGen
 A Plugin for moziloCMS 2.0
 
 A generator for various multiple exercises of different subjects.
@@ -25,5 +23,5 @@ Shows configuration formula and generated contents.
 This Plugin is distributed under *GNU General Public License, Version 3* (see LICENSE) or, at your choice, any further version.
 
 ## Documentation
-A detailed documentation and demo can be found here:
-http://t.devmount.de/Develop/moziloCMS/Plugins/TaskGen.html
+A detailed documentation and demo can be found here:  
+https://github.com/devmount-mozilo/TaskGen/wiki/Dokumentation
