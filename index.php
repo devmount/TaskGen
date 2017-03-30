@@ -12,8 +12,7 @@
  * @author   DEVMOUNT <mail@devmount.de>
  * @license  GPL v3+
  * @version  GIT: v0.1.2014-08-25
- * @link     https://github.com/devmount-mozilo/TaskGen
- * @link     http://devmount.de/Develop/moziloCMS/Plugins/TaskGen.html
+ * @link     https://github.com/devmount-mozilo/TaskGen/wiki/Dokumentation
  * @see      So do not fear, for I am with you; do not be dismayed, for I am your
  *           God. I will strengthen you and help you; I will uphold you with my
  *           righteous right hand.
@@ -50,7 +49,7 @@ class TaskGen extends Plugin
     const PLUGIN_VERSION = 'v0.1.2014-08-25';
     const MOZILO_VERSION = '2.0';
     const PLUGIN_DOCU
-        = 'http://devmount.de/Develop/moziloCMS/Plugins/TaskGen.html';
+        = 'https://github.com/devmount-mozilo/TaskGen/wiki/Dokumentation';
 
     private $_plugin_tags = array(
         'tag1' => '{TaskGen}',
